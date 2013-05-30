@@ -1,0 +1,73 @@
+# "Guess the Number"
+
+import math
+import random
+import simplegui
+
+# global variables
+low = 0
+high = 0
+guess_limit = 0
+secret_number = 0
+
+# function to start initial game
+def init():
+    return range100()
+
+# function to start a new game
+def new_game(new_low, new_high):
+    global low, high, guess_limit, secret_number
+    low = new_low
+    high = new_high
+    guess_limit = math.ceil(math.log(high - low, 2))
+    secret_number = random.randrange(low, high)
+    print "New Game: Pick a number between", str(low), "and", str(high) + "."
+    print "You have", guess_limit, "guesses."
+    print
+
+# event handlers for control panel
+
+def range100():
+    # button that changes range to range [0,100) and restarts
+    new_game(0, 100)
+
+def range1000():
+    # button that changes range to range [0,1000) and restarts
+    new_game(0, 1000)
+
+def get_input(guess):
+    # main game logic
+    global guess_limit, secret_number
+    guess_limit = guess_limit - 1
+    print "You guessed", guess + "."
+    if int(guess) < secret_number:
+        print "Higher."
+    elif int(guess) > secret_number:
+        print "Lower."
+    else:
+        print "That is correct! The number was", str(secret_number) + "."
+    if guess_limit > 1 and int(guess) != secret_number:
+        print "You have", guess_limit, "guesses remaining."
+        print
+    elif guess_limit == 1 and int(guess) != secret_number:
+        print "You have", guess_limit, "guess remaining."
+        print
+    elif guess_limit == 0 and int(guess) != secret_number:
+        print "You ran out of guesses. The number was", str(secret_number) + "."
+        print
+        return new_game(low, high)
+    else:
+        print
+        return new_game(low, high)
+
+# create frame
+frame = simplegui.create_frame("Guess the Number", 200, 200)
+
+# register event handlers for control elements
+frame.add_input("Pick a number:", get_input, 100)
+frame.add_button("Range 0-100", range100, 200)
+frame.add_button("Range 0-1000", range1000, 200)
+
+# start frame
+frame.start()
+init()

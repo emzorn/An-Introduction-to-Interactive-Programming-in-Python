@@ -107,7 +107,7 @@ def stand():
     # assign a message to outcome, update in_play and score
 	pass
 
-# draw handler    
+# draw handler
 def draw(canvas):
     # test to make sure that card.draw works, replace with your code below
     

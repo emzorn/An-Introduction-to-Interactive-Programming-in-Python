@@ -124,6 +124,5 @@ frame.add_button("Hit",  hit, 200)
 frame.add_button("Stand", stand, 200)
 frame.set_draw_handler(draw)
 
-
 # get things rolling
 frame.start()

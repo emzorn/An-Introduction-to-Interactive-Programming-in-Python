@@ -26,7 +26,6 @@ def new_game(new_low, new_high):
     print
 
 # event handlers for control panel
-
 def range100():
     # button that changes range to range [0,100) and restarts
     new_game(0, 100)
